@@ -4,7 +4,7 @@ import type { Note } from "../types/note";
 const myKey = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
 const API_URL = "https://notehub-public.goit.study/api/notes";
 
-interface NoteHttpResponse {
+export interface NoteHttpResponse {
   notes: Note[];
   totalPages: number;
   page: number;
@@ -46,3 +46,13 @@ export const deleteNote = async (id: string) => {
   });
   return response.data;
 };
+
+
+export const fetchNoteById = async (id: string) =>{
+const response = await axios.get<Note>(`${API_URL}/${id}`, 
+  {headers: {
+    Authorization: `Bearer ${myKey}`,
+  },
+});
+return response.data;
+}
