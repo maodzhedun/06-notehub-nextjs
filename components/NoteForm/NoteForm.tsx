@@ -2,15 +2,13 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import type { FormikHelpers } from 'formik';
 import { useId } from 'react';
 import * as Yup from 'yup';
-import type { Note } from '../../types/note';
-import { createNote } from '../../lib/api';
+import { createNote } from '@/lib/api';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import css from './NoteForm.module.css';
 
 interface NoteFormProps {
   onClose: () => void;
-  note: Note | null;
 }
 
 interface NoteFormValues {
@@ -27,12 +25,10 @@ const initialValues: NoteFormValues = {
 
 const NoteFormSchema = Yup.object().shape({
   title: Yup.string()
-    .min(3, 'Title must be at least 2 characters')
-    .max(30, 'Title is too long')
+    .min(3, 'Title must be at least 3 characters')
+    .max(50, 'Title is too long')
     .required('Title is required'),
-  content: Yup.string()
-    .max(500, 'Content is too long')
-    .required('Content is required'),
+  content: Yup.string().max(500, 'Content is too long'),
   tag: Yup.string()
     .oneOf(['Todo', 'Work', 'Personal', 'Meeting', 'Shopping'], 'Invalid tag')
     .required('Tag is required'),
@@ -98,7 +94,7 @@ export default function NoteForm({ onClose }: NoteFormProps) {
             name="tag"
             className={css.select}
           >
-            <option value="Todo">-- Choose type note</option>
+            <option value=" ">-- Choose type note</option>
             <option value="Todo">Todo</option>
             <option value="Work">Work</option>
             <option value="Personal">Personal</option>
