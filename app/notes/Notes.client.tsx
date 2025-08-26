@@ -69,7 +69,7 @@ const NotesClient = () => {
         {data && data.notes.length > 0 && <NoteList notes={data?.notes} />}
         {isModalOpen && (
           <Modal onClose={closeModal}>
-            <NoteForm onClose={closeModal} note={null} />
+            <NoteForm onClose={closeModal} />
           </Modal>
         )}
         {(isLoading || isFetching) && <Loader />}
